@@ -1,8 +1,12 @@
 # GUINNESS: A GUI based binarized Neural NEtwork SyntheSizer toward an FPGA (Trial version)
 
-## This fork makes GUINNESS operate-able with PyQt5. ##
+**This fork mainly created to make GUINNESS operate-able with PyQt5 and remove some usused dependencies.**
+- To download dataset in `guinness_tutorial1_v2.pdf` and unzip.
+```bash
+bash download_dataset.sh
+```
 
-
+## ------------------------------------------------------------------------------------------------------------------------------------------------------------
 This GUI based framework includes both a training on a GPU, and a bitstream generation for an FPGA using the Xilinx Inc. SDSoC. This tool uses the Chainer deep learning framework to train a binarized CNN. Also, it uses optimization techniques for an FPGA implementation. Details are shown in following papers:
 
 [Nakahara IPDPSW2017] H. Yonekawa and H. Nakahara, "On-Chip Memory Based Binarized Convolutional Deep Neural Network Applying Batch Normalization Free Technique on an FPGA," IPDPS Workshops, 2017, pp. 98-105.  
