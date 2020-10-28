@@ -47,7 +47,7 @@ FPGA board: Xilinx ZC702, ZC706, ZCU102, Digilent Zedboard, Zybo
 ```
 pip install chainer==1.24
  ```
- <s>  PyQt4 (not PyQt5!), it is already installed by the Anaconda </s> 
+ <s>  PyQt4 (not PyQt5!), it is already installed by the Anaconda </s> PyQt5
 ```bash
 conda install pyqt
  ```
