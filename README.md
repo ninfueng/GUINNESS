@@ -6,7 +6,7 @@
 bash download_dataset.sh
 ```
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------
 This GUI based framework includes both a training on a GPU, and a bitstream generation for an FPGA using the Xilinx Inc. SDSoC. This tool uses the Chainer deep learning framework to train a binarized CNN. Also, it uses optimization techniques for an FPGA implementation. Details are shown in following papers:
 
 [Nakahara IPDPSW2017] H. Yonekawa and H. Nakahara, "On-Chip Memory Based Binarized Convolutional Deep Neural Network Applying Batch Normalization Free Technique on an FPGA," IPDPS Workshops, 2017, pp. 98-105.  
@@ -33,7 +33,7 @@ Xilinx Inc. SDSoC 2017.4
 FPGA board: Xilinx ZC702, ZC706, ZCU102, Digilent Zedboard, Zybo  
 (Soon, I will support Intel's FPGAs!, and the PYNQ board)  
 
-PyQt4, matplotlib, OpenCV3, numpy, scipy,
+<s> PyQt4 </s> PyQt5, matplotlib, OpenCV3, numpy, <s> scipy </s>,
 (Above libraries are installed by the Anaconda, however, you must individually install the OpenCV by "conda install -y -c menpo opencv3")
 
 ### 2. Setup Libraries
@@ -41,23 +41,23 @@ PyQt4, matplotlib, OpenCV3, numpy, scipy,
  Install the following python libraries:
 
  Chainer 
-
- sudo pip install chainer==1.24.0
- 
+```
+<s>sudo</s> pip install chainer==1.24
+ ```
  <s>  PyQt4 (not PyQt5!), it is already installed by the Anaconda </s> 
-
+```bash
  <s> sudo apt-get install python-qt4 pyqt4-dev-tools </s>
  **conda install pyqt**
- 
+ ```
 
  OpenCV3
- 
- conda install -y -c menpo opencv3
-
+```bash
+conda install -y -c menpo opencv3
+```
 ### 3. Run GUINNESS
-
- $ python guinness.py
-
+```bash
+python guinness.py
+```
 ### 4. Tutorial
 
  Read a following document (25/Oct./2017 Updated!!)
