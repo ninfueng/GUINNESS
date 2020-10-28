@@ -42,12 +42,12 @@ FPGA board: Xilinx ZC702, ZC706, ZCU102, Digilent Zedboard, Zybo
 
  Chainer 
 ```
-<s>sudo</s> pip install chainer==1.24
+pip install chainer==1.24
  ```
  <s>  PyQt4 (not PyQt5!), it is already installed by the Anaconda </s> 
 ```bash
- <s> sudo apt-get install python-qt4 pyqt4-dev-tools </s>
- **conda install pyqt**
+sudo apt-get install python-qt4 pyqt4-dev-tools
+conda install pyqt
  ```
 
  OpenCV3
