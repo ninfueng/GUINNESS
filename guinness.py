@@ -18,7 +18,11 @@
 # -----------------------------------------------------------------------
 
 import sys,random,time,os
-from PyQt4 import QtGui, QtCore
+#from PyQt4 import  QtCore
+#from PyQt5 import  QtCore, QtWidgets
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5 import *
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
@@ -34,7 +38,7 @@ img_siz = 32 # default input image size
 n_class = 10 # default the number of classes to be inferenced
 is_load_pretrain = 0
 
-class Layout(QtGui.QWidget):
+class Layout(QWidget):
     def __init__(self):
         super(Layout,self).__init__()
 
@@ -60,27 +64,29 @@ class Layout(QtGui.QWidget):
         ##################################################################
         # Left Column
         ##################################################################
-        vbox_left_column = QtGui.QVBoxLayout()
+        vbox_left_column =QVBoxLayout()
 #        vbox_left_column.setGeometry(QtCore.QRect(0,0,800,24))
 
         # project setup --------------------------------------------------
-        project_setup_box = QtGui.QGroupBox("1. Project Setup")
-        project = QtGui.QLabel('Project Name')
-        self.projectEdit = QtGui.QLineEdit()
+        project_setup_box = QGroupBox("1. Project Setup")
+        project = QLabel('Project Name')
+        self.projectEdit =QLineEdit()
         self.projectEdit.setText('Project1')
 
-        hbox = QtGui.QHBoxLayout()
+        hbox = QHBoxLayout()
         hbox.addWidget(project)
         hbox.addWidget(self.projectEdit)
 
-        vbox_proj = QtGui.QVBoxLayout()
+        vbox_proj =QVBoxLayout()
         vbox_proj.addLayout(hbox)
 
-        ProjSaveButton = QtGui.QPushButton("SAVE")
-        self.connect(ProjSaveButton,QtCore.SIGNAL('clicked()'),self.SaveProj)
-        ProjLoadButton = QtGui.QPushButton("LOAD")
-        self.connect(ProjLoadButton,QtCore.SIGNAL('clicked()'),self.LoadProj)
-        hbox_proj = QtGui.QHBoxLayout()
+        ProjSaveButton = QPushButton("SAVE")
+        #self.connect(ProjSaveButton,QtCore.SIGNAL('clicked()'),self.SaveProj)
+        ProjSaveButton.clicked.connect(self.SaveProj)
+        ProjLoadButton = QPushButton("LOAD")
+        #self.connect(ProjLoadButton,QtCore.SIGNAL('clicked()'),self.LoadProj)
+        ProjLoadButton.clicked.connect(self.LoadProj)
+        hbox_proj = QHBoxLayout()
         hbox_proj.addWidget(ProjSaveButton)
         hbox_proj.addWidget(ProjLoadButton)
         vbox_proj.addLayout(hbox_proj)
@@ -89,28 +95,29 @@ class Layout(QtGui.QWidget):
         vbox_left_column.addWidget(project_setup_box)
 
         # cnn setup table ------------------------------------------------
-        cnn_setup_box = QtGui.QGroupBox("2. CNN Specificaion")
+        cnn_setup_box = QGroupBox("2. CNN Specificaion")
 
-        vbox_cnn = QtGui.QVBoxLayout()
+        vbox_cnn =QVBoxLayout()
 
-        cnntype = QtGui.QLabel('Type')
-        self.combo1 = QtGui.QComboBox()
+        cnntype = QLabel('Type')
+        self.combo1 = QComboBox()
         self.combo1.addItem("LeNet5")
         self.combo1.addItem("TinyCNN")
         self.combo1.addItem("VGG9ave")
         self.combo1.addItem("VGG11ave")
         self.combo1.addItem("VGG16ave")
         self.combo1.addItem("VGG19ave")
-        LoadButton = QtGui.QPushButton("LOAD CONFIG")
-        self.connect(LoadButton,QtCore.SIGNAL('clicked()'),self.LoadConfig)
-        hbox2 = QtGui.QHBoxLayout()
+        LoadButton = QPushButton("LOAD CONFIG")
+        #self.connect(LoadButton,QtCore.SIGNAL('clicked()'),self.LoadConfig)
+        LoadButton.clicked.connect(self.LoadConfig)
+        hbox2 = QHBoxLayout()
         hbox2.addWidget(cnntype)
         hbox2.addWidget(self.combo1)
         hbox2.addWidget(LoadButton)
 
         vbox_cnn.addLayout(hbox2)
 
-        self.table = QtGui.QTableWidget()
+        self.table = QTableWidget()
         self.table.setColumnCount(5)
 
         labels = ["Type","In #Fmaps","Out #Fmaps","In Fsiz","Train?"]
@@ -133,53 +140,53 @@ class Layout(QtGui.QWidget):
         ##################################################################
         # Right Column
         ##################################################################
-        vbox_right_column = QtGui.QVBoxLayout()
+        vbox_right_column = QVBoxLayout()
 
-        training_setup_box = QtGui.QGroupBox("3. Training")
-        vbox_training = QtGui.QVBoxLayout()
+        training_setup_box = QGroupBox("3. Training")
+        vbox_training = QVBoxLayout()
         # parameters for traning -----------------------------------------
         # training data
-        tdlabel = QtGui.QLabel('Training Data')
-        ld_button = QtGui.QPushButton("Load")
+        tdlabel = QLabel('Training Data')
+        ld_button = QPushButton("Load")
         ld_button.clicked.connect(self.open_FileDialog)
-        self.td_label = QtGui.QLineEdit("image.pkl")
+        self.td_label = QLineEdit("image.pkl")
 
-        hbox_td = QtGui.QHBoxLayout()
+        hbox_td = QHBoxLayout()
         hbox_td.addWidget(tdlabel) 
         hbox_td.addWidget(ld_button) 
         hbox_td.addWidget(self.td_label)
         vbox_training.addLayout(hbox_td)
 
         # training label
-        tllabel = QtGui.QLabel('Training Label')
-        ll_button = QtGui.QPushButton("Load")
+        tllabel = QLabel('Training Label')
+        ll_button = QPushButton("Load")
         ll_button.clicked.connect(self.open_FileDialog_tl)
-        self.tl_label = QtGui.QLineEdit("label.pkl") 
+        self.tl_label = QLineEdit("label.pkl") 
 
-        hbox_tl = QtGui.QHBoxLayout()
+        hbox_tl = QHBoxLayout()
         hbox_tl.addWidget(tllabel) 
         hbox_tl.addWidget(ll_button) 
         hbox_tl.addWidget(self.tl_label)
         vbox_training.addLayout(hbox_tl)
 
         # # of training
-        n_trains = QtGui.QLabel('Number of traning')
-        self.n_trains_Edit = QtGui.QLineEdit()
+        n_trains = QLabel('Number of traning')
+        self.n_trains_Edit = QLineEdit()
         self.n_trains_Edit.setText("10")
 
-        hbox_ntrain = QtGui.QHBoxLayout()
+        hbox_ntrain = QHBoxLayout()
         hbox_ntrain.addWidget(n_trains)
         hbox_ntrain.addWidget(self.n_trains_Edit)
 
         vbox_training.addLayout(hbox_ntrain)
 
         # optimizer
-        hbox3 = QtGui.QHBoxLayout()
-        cnntype = QtGui.QLabel('Optimizer')        
-        self.b11=QtGui.QRadioButton("SGD")
+        hbox3 = QHBoxLayout()
+        cnntype = QLabel('Optimizer')        
+        self.b11=QRadioButton("SGD")
         self.b11.setChecked(True)
-        self.b12=QtGui.QRadioButton("Adam")
-        bg1=QtGui.QButtonGroup()
+        self.b12=QRadioButton("Adam")
+        bg1=QButtonGroup()
         bg1.addButton(self.b11)
         bg1.addButton(self.b12)
         hbox3.addWidget(cnntype)
@@ -189,12 +196,12 @@ class Layout(QtGui.QWidget):
         vbox_training.addLayout(hbox3)
 
         # Use GPU?
-        self.cb = QtGui.QCheckBox('Use GPU')
+        self.cb = QCheckBox('Use GPU')
         self.cb.setChecked(True)
         vbox_training.addWidget(self.cb)
 
         # message
-        train_process = QtGui.QLabel('Training Process View')
+        train_process = QLabel('Training Process View')
         vbox_training.addWidget(train_process)
 
         # matplotlib
@@ -205,11 +212,11 @@ class Layout(QtGui.QWidget):
         vbox_training.addWidget(self.canvas)
         
         # training button
-        hbox_control = QtGui.QHBoxLayout()
-        self.bstart=QtGui.QPushButton("Start Training")
+        hbox_control = QHBoxLayout()
+        self.bstart=QPushButton("Start Training")
         bg1.addButton(self.bstart)
         self.bstart.clicked.connect(self.start_training)
-        bstop=QtGui.QPushButton("Stop Training")
+        bstop=QPushButton("Stop Training")
         bstop.setVisible(False)
         bg1.addButton(bstop)
         hbox_control.addWidget(self.bstart)
@@ -221,37 +228,37 @@ class Layout(QtGui.QWidget):
 
         # FPGA implementation ------------------------------------------------
         # Select fpga board
-        fpga_setup_box = QtGui.QGroupBox("4. C/C++ Code Generation for FPGA Implementation")
-        vbox_fpga = QtGui.QVBoxLayout()
+        fpga_setup_box = QGroupBox("4. C/C++ Code Generation for FPGA Implementation")
+        vbox_fpga = QVBoxLayout()
 
-        fpgaboard = QtGui.QLabel('Target FPGA Board')
-        self.combo2 = QtGui.QComboBox()
+        fpgaboard = QLabel('Target FPGA Board')
+        self.combo2 = QComboBox()
         self.combo2.addItem("zed")
         self.combo2.addItem("zybo")
         self.combo2.addItem("zc702")
         self.combo2.addItem("zcu102")
-        hbox3 = QtGui.QHBoxLayout()
+        hbox3 = QHBoxLayout()
         hbox3.addWidget(fpgaboard)
         hbox3.addWidget(self.combo2)
 
         vbox_fpga.addLayout(hbox3)
 
 #        # Setup Clock Frequency
-#        clkfreq = QtGui.QLabel('Clock Frequency (MHz)')
-#        combo3 = QtGui.QComboBox()
+#        clkfreq = QLabel('Clock Frequency (MHz)')
+#        combo3 = QComboBox()
 #        combo3.addItem("100.0")
 #        combo3.addItem("147.6")
 #        combo3.addItem("150.0")
 #        combo3.addItem("200.0")
-#        hbox4 = QtGui.QHBoxLayout()
+#        hbox4 = QHBoxLayout()
 #        hbox4.addWidget(clkfreq)
 #        hbox4.addWidget(combo3)
 #
 #        vbox_fpga.addLayout(hbox4)
 
         # Run Bitstream Generation
-#        bstart_bitgen=QtGui.QPushButton("Generate Bitstream")
-        bstart_bitgen=QtGui.QPushButton("Generate C/C++ Code")
+#        bstart_bitgen=QPushButton("Generate Bitstream")
+        bstart_bitgen=QPushButton("Generate C/C++ Code")
         bg1.addButton(bstart_bitgen)
         bstart_bitgen.clicked.connect(self.start_bitgen)
 
@@ -263,7 +270,7 @@ class Layout(QtGui.QWidget):
         # -------------------------------------------------------
         # overall layout
         # -------------------------------------------------------
-        hbox_global = QtGui.QHBoxLayout()
+        hbox_global = QHBoxLayout()
         hbox_global.addLayout(vbox_left_column)
         hbox_global.addLayout(vbox_right_column)
 
@@ -273,11 +280,11 @@ class Layout(QtGui.QWidget):
     # Context Menu for the CNN configuration table
     # -----------------------------------------------------------
     def contextMenu_(self, event):
-        menu = QtGui.QMenu()
+        menu = QMenu()
         addAction = menu.addAction('Add layer',)
         delAction = menu.addAction('Delete layer',)
 
-        action = menu.exec_(QtGui.QCursor.pos())
+        action = menu.exec_(QCursor.pos())
 
         initial_options = []
         n_in_fmaps = []
@@ -313,19 +320,19 @@ class Layout(QtGui.QWidget):
 
         self.table.setRowCount(len(initial_options))
         for index in range(len(initial_options)):
-            combo = QtGui.QComboBox()
+            combo = QComboBox()
             for t in self.combo_box_options:
                 combo.addItem(t)
             combo.setCurrentIndex(initial_options[index])
             self.table.setCellWidget(index,0,combo)
-            item1 = QtGui.QTableWidgetItem(n_in_fmaps[index])
+            item1 = QTableWidgetItem(n_in_fmaps[index])
             self.table.setItem(index,1,item1)
-            item2 = QtGui.QTableWidgetItem(n_ou_fmaps[index])
+            item2 = QTableWidgetItem(n_ou_fmaps[index])
             self.table.setItem(index,2,item2)
-            item3 = QtGui.QTableWidgetItem(infmap_siz[index])
+            item3 = QTableWidgetItem(infmap_siz[index])
             self.table.setItem(index,3,item3)
 
-            item4 = QtGui.QCheckBox('')
+            item4 = QCheckBox('')
             item4.setChecked(True) # isChecked() == True?False?
             self.table.setCellWidget(index,4,item4)
 
@@ -553,7 +560,7 @@ class Layout(QtGui.QWidget):
                 subprocess.Popen(["cp","temp.model",project_path]) # background job = python train.py &
                 subprocess.Popen(["cp","temp_log.csv",project_path]) # background job = python train.py &
                 self.timer.stop()
-                ret = QtGui.QMessageBox.information(None, "Training Status", "Training Finished")
+                ret = QMessageBox.information(None, "Training Status", "Training Finished")
 
                 # set continue training mode
                 self.bstart.setVisible(True)
@@ -710,7 +717,7 @@ class Layout(QtGui.QWidget):
         print("[INFO] PLEASE, ``SAVE'' YOUR CURRENT DESIGN")
 
 #        # show message
-#        ret = QtGui.QMessageBox.information(None, "Bistream Generation Status", "C++ code generated")
+#        ret = QMessageBox.information(None, "Bistream Generation Status", "C++ code generated")
 
     # -----------------------------------------------------------------------
     # FileOpen Dialog for Project Configuration
@@ -745,7 +752,7 @@ class Layout(QtGui.QWidget):
     # load project configuration file
     def LoadProj(self):
         global is_load_pretrain
-        filename = QtGui.QFileDialog.getOpenFileName(self, 'File Open', './')
+        filename = QFileDialog.getOpenFileName(self, 'File Open', './')
 
         with open(filename, mode='r') as f:
             lines2 = f.readlines()
@@ -798,19 +805,19 @@ class Layout(QtGui.QWidget):
 
         self.table.setRowCount(len(initial_options))
         for index in range(len(initial_options)):
-            combo = QtGui.QComboBox()
+            combo = QComboBox()
             for t in self.combo_box_options:
                 combo.addItem(t)
             combo.setCurrentIndex(initial_options[index])
             self.table.setCellWidget(index,0,combo)
-            item1 = QtGui.QTableWidgetItem(n_in_fmaps[index])
+            item1 = QTableWidgetItem(n_in_fmaps[index])
             self.table.setItem(index,1,item1)
-            item2 = QtGui.QTableWidgetItem(n_ou_fmaps[index])
+            item2 = QTableWidgetItem(n_ou_fmaps[index])
             self.table.setItem(index,2,item2)
-            item3 = QtGui.QTableWidgetItem(infmap_siz[index])
+            item3 = QTableWidgetItem(infmap_siz[index])
             self.table.setItem(index,3,item3)
 
-            item4 = QtGui.QCheckBox('')
+            item4 = QCheckBox('')
             item4.setChecked(True) # isChecked() == True?False?
             self.table.setCellWidget(index,4,item4)
 
@@ -858,19 +865,19 @@ class Layout(QtGui.QWidget):
             
             if index == 0:
                 fsiz = img_siz
-                tbl_item = QtGui.QTableWidgetItem(str(int(fsiz)))
+                tbl_item = QTableWidgetItem(str(int(fsiz)))
                 self.table.setItem(index,3,tbl_item)
                 #fsiz = int(itm3.text())
             elif itm0.currentText() == 'Conv(Int)':
-                tbl_item = QtGui.QTableWidgetItem(str(int(fsiz)))
+                tbl_item = QTableWidgetItem(str(int(fsiz)))
                 self.table.setItem(index,3,tbl_item)
 
             elif itm0.currentText() == 'Conv(Bin)':
-                tbl_item = QtGui.QTableWidgetItem(str(int(fsiz)))
+                tbl_item = QTableWidgetItem(str(int(fsiz)))
                 self.table.setItem(index,3,tbl_item)
 
             elif itm0.currentText() == 'Max Pool':
-                tbl_item = QtGui.QTableWidgetItem(str(int(fsiz)))
+                tbl_item = QTableWidgetItem(str(int(fsiz)))
                 self.table.setItem(index,3,tbl_item)
 
                 fsiz = fsiz / 2
@@ -878,7 +885,7 @@ class Layout(QtGui.QWidget):
                     fsiz = 1
 
             elif itm0.currentText() == 'Ave Pool':
-                tbl_item = QtGui.QTableWidgetItem(str(int(fsiz)))
+                tbl_item = QTableWidgetItem(str(int(fsiz)))
                 self.table.setItem(index,3,tbl_item)
 
                 fsiz = fsiz / 2
@@ -886,7 +893,7 @@ class Layout(QtGui.QWidget):
                     fsiz = 1
 
             else: # Dense
-                tbl_item = QtGui.QTableWidgetItem('1')
+                tbl_item = QTableWidgetItem('1')
                 self.table.setItem(index,3,tbl_item)
 
 
@@ -896,7 +903,7 @@ class Layout(QtGui.QWidget):
     def open_FileDialog(self):
         global n_dim
         global img_siz
-        filename = QtGui.QFileDialog.getOpenFileName(self, 'File Open', './')
+        filename = QFileDialog.getOpenFileName(self, 'File Open', './')
         self.td_label.setText(filename)
 
         # check dimension and size
@@ -911,7 +918,7 @@ class Layout(QtGui.QWidget):
             self.SetSize()
 
     def open_FileDialog_tl(self):
-        filename = QtGui.QFileDialog.getOpenFileName(self, 'File Open', './')
+        filename = QFileDialog.getOpenFileName(self, 'File Open', './')
         self.tl_label.setText(filename)
 
         # check dimension and size
@@ -924,7 +931,7 @@ class Layout(QtGui.QWidget):
 
             n_class = max_idx
 
-            item3 = QtGui.QTableWidgetItem(str(n_class))
+            item3 = QTableWidgetItem(str(n_class))
             self.table.setItem(self.table.rowCount()-1,2,item3)
 
     # -----------------------------------------------------------------------
@@ -976,19 +983,19 @@ class Layout(QtGui.QWidget):
 
         self.table.setRowCount(len(initial_options))
         for index in range(len(initial_options)):
-            combo = QtGui.QComboBox()
+            combo = QComboBox()
             for t in self.combo_box_options:
                 combo.addItem(t)
             combo.setCurrentIndex(initial_options[index])
             self.table.setCellWidget(index,0,combo)
-            item1 = QtGui.QTableWidgetItem(n_in_fmaps[index])
+            item1 = QTableWidgetItem(n_in_fmaps[index])
             self.table.setItem(index,1,item1)
-            item2 = QtGui.QTableWidgetItem(n_ou_fmaps[index])
+            item2 = QTableWidgetItem(n_ou_fmaps[index])
             self.table.setItem(index,2,item2)
-            item3 = QtGui.QTableWidgetItem(infmap_siz[index])
+            item3 = QTableWidgetItem(infmap_siz[index])
             self.table.setItem(index,3,item3)
 
-            item4 = QtGui.QCheckBox('')
+            item4 = QCheckBox('')
             item4.setChecked(True) # isChecked() == True?False?
             self.table.setCellWidget(index,4,item4)
 
@@ -1061,7 +1068,7 @@ class Canvas(FigureCanvas):
 # Main
 ###########################################################################################
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex = Layout()
     sys.exit(app.exec_())
 
