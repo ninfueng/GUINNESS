@@ -1,7 +1,5 @@
 import numpy as np
-import six
-from scipy.misc import imresize, imrotate
-
+import six 
 from chainer import functions as F
 from chainer import cuda
 from chainer import Variable

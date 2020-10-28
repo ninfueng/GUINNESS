@@ -1,0 +1,7 @@
+class3_images/
+class3_dataset.pkl
+class3_label.pkl
+class3_tag.txt
+temp.model
+temp_log.csv
+test_img.txt

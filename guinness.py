@@ -18,8 +18,6 @@
 # -----------------------------------------------------------------------
 
 import sys,random,time,os
-#from PyQt4 import  QtCore
-#from PyQt5 import  QtCore, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import *
@@ -904,6 +902,7 @@ class Layout(QWidget):
         global n_dim
         global img_siz
         filename = QFileDialog.getOpenFileName(self, 'File Open', './')
+        filename = filename[0] 
         self.td_label.setText(filename)
 
         # check dimension and size
@@ -919,6 +918,7 @@ class Layout(QWidget):
 
     def open_FileDialog_tl(self):
         filename = QFileDialog.getOpenFileName(self, 'File Open', './')
+        filename = filename[0]
         self.tl_label.setText(filename)
 
         # check dimension and size

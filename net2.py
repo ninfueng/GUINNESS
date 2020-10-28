@@ -25,11 +25,11 @@ class CNN(chainer.Chain):
 
             conv0=IC.Convolution2D(3,64,3, stride=1, pad=1, nobias=True),
             b0=L.BatchNormalization(64),
-            conv1=BC.Convolution2D(64,128,3, stride=1, pad=1, nobias=True),
-            b1=L.BatchNormalization(128),
-            conv2=BC.Convolution2D(128,128,3, stride=1, pad=1, nobias=True),
-            b2=L.BatchNormalization(128),
-            fc0=BL.BinaryLinear(128,3),
+            conv1=BC.Convolution2D(64,64,3, stride=1, pad=1, nobias=True),
+            b1=L.BatchNormalization(64),
+            conv2=BC.Convolution2D(64,64,3, stride=1, pad=1, nobias=True),
+            b2=L.BatchNormalization(64),
+            fc0=BL.BinaryLinear(64,3),
             b3=L.BatchNormalization(3)
         )
 
@@ -37,7 +37,6 @@ class CNN(chainer.Chain):
         h = bst.bst(self.b0(self.conv0(x)))
         h = bst.bst(self.b1(self.conv1(h)))
         h = bst.bst(self.b2(self.conv2(h)))
-        h = F.max_pooling_2d(h, 2)
-        h = F.average_pooling_2d(h, 24)
+        h = F.average_pooling_2d(h, 48)
         h = self.b3(self.fc0(h))
         return h

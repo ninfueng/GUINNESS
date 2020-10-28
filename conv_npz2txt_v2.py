@@ -10,7 +10,6 @@
 # -----------------------------------------------------------------------
 
 import pickle
-from chainer import serializers
 import numpy as np
 import argparse
 import sys
