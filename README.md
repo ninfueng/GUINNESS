@@ -40,10 +40,10 @@ PyQt4, matplotlib, OpenCV3, numpy, scipy,
 
  sudo pip install chainer==1.24.0
  
- PyQt4 (not PyQt5!), it is already installed by the Anaconda
+ <s>  PyQt4 (not PyQt5!), it is already installed by the Anaconda </s> 
 
  <s> sudo apt-get install python-qt4 pyqt4-dev-tools </s>
- ** conda install pyqt **
+ **conda install pyqt**
  
 
  OpenCV3
