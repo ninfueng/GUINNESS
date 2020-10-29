@@ -1,4 +1,4 @@
-# GUINNESS: A GUI based binarized Neural NEtwork SyntheSizer toward an FPGA (Trial version) (Remove PyQt4 to PyQt5)
+# GUINNESS: A GUI based binarized Neural NEtwork SyntheSizer toward an FPGA (Trial version) (Supporting PyQt5 version)
 
 **This fork is created for make GUINNESS operate-able with PyQt5.**
 Some unused dependencies were removed. The installing script is included in this fork.
