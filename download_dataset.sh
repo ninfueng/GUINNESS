@@ -7,4 +7,4 @@ rm class3_images.zip
 echo "Generate training dataset."
 python gen_training_data.py --pathfile list.txt --dataset class3 --size 48 --keepaspect yes
 
-
+echo "Done!"

@@ -5,3 +5,4 @@ class3_tag.txt
 temp.model
 temp_log.csv
 test_img.txt
+.mypy_cache/
