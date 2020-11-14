@@ -1,12 +1,13 @@
 # GUINNESS: A GUI based binarized Neural NEtwork SyntheSizer toward an FPGA (Trial version) (Supporting PyQt5 version)
-**This fork is created to make GUINNESS compatible with PyQt5.**
-Some un-used dependencies were removed. The additional downloading script for a dataset mentioned in `guinness_tutorial1_v2.pdf` is also included in this fork. With PyQt5 supporting, this allows the user to not build PyQt4 from binary.
+**This fork was created to make GUINNESS compatible with PyQt5.**
+Some un-used dependencies were removed. The additional downloading script for a dataset mentioned in `guinness_tutorial1_v2.pdf` is also included. With PyQt5 supporting, this allows the user to not build PyQt4 from binary.
 
 - To download a dataset mentioned in `guinness_tutorial1_v2.pdf` and unzip.
 ```bash
 bash download_dataset.sh
 ```
-- To train and how to use GUINNESS please follows `guinness_tutorial1_v2.pdf`.
+- To train or to use the GUINNESS please follows `guinness_tutorial1_v2.pdf`.
+
 
 ## -----------------------------------------------------------------------------------
 This GUI based framework includes both a training on a GPU, and a bitstream generation for an FPGA using the Xilinx Inc. SDSoC. This tool uses the Chainer deep learning framework to train a binarized CNN. Also, it uses optimization techniques for an FPGA implementation. Details are shown in following papers:
