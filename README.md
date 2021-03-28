@@ -9,7 +9,7 @@ bash download_dataset.sh
 - To train or to use the GUINNESS please follows `guinness_tutorial1_v2.pdf`.
 
 ## TODO: 
-- [ ] Qcursor fixing.
+- [x] Qcursor fixing.
 
 ## -------------------------------------------------------------------------------------------
 This GUI based framework includes both a training on a GPU, and a bitstream generation for an FPGA using the Xilinx Inc. SDSoC. This tool uses the Chainer deep learning framework to train a binarized CNN. Also, it uses optimization techniques for an FPGA implementation. Details are shown in following papers:
