@@ -1,6 +1,6 @@
 # GUINNESS: A GUI based binarized Neural NEtwork SyntheSizer toward an FPGA (Supporting PyQt5 version)
-**This repository is a forked from [GUINNESS](https://github.com/HirokiNakahara/GUINNESS) to fix compatibilities with PyQt5.**
-Some un-used dependencies were removed. The additional script for download a dataset mentioned in `guinness_tutorial1_v2.pdf` is also included. With PyQt5 support allows users to not build PyQt4 from binary.
+**This repository was forked from [GUINNESS](https://github.com/HirokiNakahara/GUINNESS) to operate with PyQt5 instead of PyQt4.**
+Some unused dependencies were removed. An additional script for download a dataset mentioned in `guinness_tutorial1_v2.pdf` is also included. With PyQt5 support, this allows users to not build PyQt4 from binary.
 
 - To download a dataset mentioned in `guinness_tutorial1_v2.pdf` and unzip.
 ```bash
