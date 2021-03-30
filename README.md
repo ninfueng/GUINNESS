@@ -10,6 +10,7 @@ bash download_dataset.sh
 
 ## TODO: 
 - [x] Qcursor fixing.
+- [ ] Loading project problem.
 - [ ] Update with newer version of Chainer or Pytorch.
 
 ## -------------------------------------------------------------------------------------------
